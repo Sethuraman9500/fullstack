@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note over browser: User types a note in the text field
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    Note right of server: Server processes the new note
+    server-->>browser: { "success": true }
+    deactivate server
+
+    Note over browser: The browser receives confirmation of the note creation
+    Note right of browser: The browser updates the UI to show the new note
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "New note content", "date": "2023-1-1" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser re-renders the list of notes with the new note included

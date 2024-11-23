@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note over browser: User types note in input field
+    Note over browser: User clicks "Save" button
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    
+    Note right of server: Server receives JSON data
+    Note right of server: Server processes and stores new note
+    
+    server-->>browser: { "status": "created" }
+    deactivate server
+
+    Note right of browser: JavaScript receives server response
+    Note right of browser: Prevents default form submission
+    Note right of browser: Dynamically updates notes list
+    
+    browser->browser: Render new note in DOM
+    Note right of browser: Updates page without full reload
